@@ -373,6 +373,9 @@ function sellTo(thePlayer, commandName, targetPlayerName)
 					end
 
 					if interiorStatus.owner == getElementData(thePlayer, "dbid") or exports.integration:isPlayerAdmin(thePlayer) then
+						if thePlayer == targetPlayer then
+							exports.global:sendMessageToAdmins("[INTERIOR]: "..getPlayerName(thePlayer).." has transfered interior #"..dbid.." ("..getElementData(interiorElement,"name")..") to himself.")
+						end
 						if getElementData(targetPlayer, "dbid") ~= interiorStatus.owner then
 							if exports.global:hasSpaceForItem(targetPlayer, 4, dbid) then
 								local query = mysql:query_free("UPDATE interiors SET owner = '" .. getElementData(targetPlayer, "dbid") .. "', faction=0, lastused=NOW() WHERE id='" .. dbid .. "'")
